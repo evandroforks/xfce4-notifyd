@@ -212,6 +212,9 @@ notification_plugin_menu_populate (NotificationPlugin *notification_plugin)
     } else {
         entries = notify_log_variant_to_entries(entriesv);
         g_variant_unref(entriesv);
+        /* The log returns the newest entries first; list them oldest first so
+           the newest notification sits at the bottom, next to the footer items. */
+        entries = g_list_reverse(entries);
     }
 
     /* Check if the menu is going to be empty despite there being a log file, e.g.
